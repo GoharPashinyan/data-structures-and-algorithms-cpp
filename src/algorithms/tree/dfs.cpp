@@ -1,12 +1,12 @@
 #include <vector>
 
-#include "dsa/algorithms/tree/dfs.h"
+#include "algorithms/tree/dfs.h"
 
 namespace tree
 {
 	namespace
 	{
-		void preOrderHelper(const Node* root, std::vector<int>& result)
+		void preOrderHelper(const TreeNode* root, std::vector<int>& result)
 		{
 			if(root == nullptr)
 				return;
@@ -18,7 +18,7 @@ namespace tree
 
 		}
 
-		void inOrderHelper(const Node* root, std::vector<int>& result)
+		void inOrderHelper(const TreeNode* root, std::vector<int>& result)
 		{
 			if(!root)
 				return;
@@ -28,7 +28,7 @@ namespace tree
 			inOrderHelper(root->getRight(), result);
 		}
 
-		void postOrderHelper(const Node* root, std::vector<int>& result)
+		void postOrderHelper(const TreeNode* root, std::vector<int>& result)
 		{
 			if(!root)
 				return;
@@ -39,7 +39,7 @@ namespace tree
 		}
 	}
 	
-	std::vector<int> preOrder(const Node *root)
+	std::vector<int> preOrder(const TreeNode *root)
 	{
 		std::vector<int> result;
 		preOrderHelper(root, result);
@@ -47,7 +47,7 @@ namespace tree
 		return result;
 	}
 
-	std::vector<int> inOrder(const Node* root)
+	std::vector<int> inOrder(const TreeNode* root)
 	{
 		std::vector<int> result;
 		inOrderHelper(root, result);
@@ -55,7 +55,7 @@ namespace tree
 		return result;
 	}
 
-	std::vector<int> postOrder(const Node* root)
+	std::vector<int> postOrder(const TreeNode* root)
 	{
 		std::vector<int> result;
 		postOrderHelper(root, result);

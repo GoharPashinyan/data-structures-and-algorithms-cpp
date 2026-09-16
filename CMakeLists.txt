@@ -7,8 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(cpp_dsa_library
     main.cpp
-    src/dsa/node.cpp
-    src/dsa/binary_tree/binary_tree.cpp
+    src/tree/node.cpp
+    src/tree/binary_tree/binary_tree.cpp
+	src/tree/binary_search_tree/bst.cpp
     src/algorithms/tree/bfs.cpp
     src/algorithms/tree/dfs.cpp
 )

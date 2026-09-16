@@ -1,4 +1,4 @@
-#include "dsa/tree/binary_tree/binary_tree.h"
+#include "tree/binary_tree/binary_tree.h"
 #include <queue>
 
 //ctor implementation
@@ -8,7 +8,7 @@ BinaryTree::BinaryTree()
 }
 
 //getter
-Node* BinaryTree::getRoot() const
+TreeNode* BinaryTree::getRoot() const
 {
 	return root;
 }
@@ -16,19 +16,19 @@ Node* BinaryTree::getRoot() const
 //insert
 void BinaryTree::insert(int value)
 {
-	Node *newNode = new Node(value);
+	TreeNode *newNode = new TreeNode(value);
 	if(root == nullptr)
 	{
 		root = newNode;
 		return;
 	}
 
-	std::queue<Node*> q;
+	std::queue<TreeNode*> q;
 	q.push(root);
 
 	while(!q.empty())
 	{
-		Node *current = q.front();
+		TreeNode *current = q.front();
 		q.pop();
 		if(current->left == nullptr)
 		{
