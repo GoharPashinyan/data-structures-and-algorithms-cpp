@@ -14,7 +14,7 @@ A C++ project for implementing and studying data structures and algorithms.
 
 ### Binary Tree
 
-* TreeNode
+* `TreeNode`
 * Binary Tree
 * Level-order insertion
 * BFS traversal
@@ -26,27 +26,28 @@ A C++ project for implementing and studying data structures and algorithms.
 
 ### Binary Search Tree
 
-* TreeNode
+* `TreeNode`
 * BST insertion
 * BST search
 
 ### Doubly Linked List
 
-* LinkedNode<T>
-* LinkedList<T>
-* empty()
-* size()
-* front()
-* back()
-* push_front()
-* push_back()
-* pop_front()
-* pop_back()
-* clear()
+* `LinkedNode<T>`
+* `LinkedList<T>`
+* `empty()`
+* `size()`
+* `front()`
+* `back()`
+* `push_front()`
+* `push_back()`
+* `pop_front()`
+* `pop_back()`
+* `clear()`
 * Destructor
 
 ## Project Structure
 
+```text
 cpp-dsa-library/
 │
 ├── include/
@@ -87,14 +88,14 @@ cpp-dsa-library/
 ├── CMakeLists.txt
 ├── README.md
 └── .gitignore
-
+```
 
 ## Build
 
 The project uses CMake to configure the build.
 
-//bash
+```bash
 cmake --build build
+```
 
-
-The executable is generated inside the build/ directory.
+The executable is generated inside the `build/` directory.
