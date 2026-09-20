@@ -14,6 +14,21 @@ add_executable(cpp_dsa_library
     src/algorithms/tree/dfs.cpp
 )
 
+add_executable(list_test
+    tests/linked_list/list_test.cpp
+)
+
 target_include_directories(cpp_dsa_library PRIVATE
     include
+)
+
+target_include_directories(list_test PRIVATE
+    include
+)
+
+enable_testing()
+
+add_test(
+    NAME ListTest
+    COMMAND list_test
 )
