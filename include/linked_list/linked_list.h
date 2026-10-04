@@ -39,6 +39,34 @@ class LinkedList
 	//operators
 	LinkedList<T>& operator=(const LinkedList<T>& other);
 	LinkedList<T>& operator=(LinkedList<T> &&other);
+
+
+
+	//iterator
+	class Iterator
+	{
+		private:
+		LinkedNode<T>* m_node;
+
+		public:
+		Iterator(LinkedNode<T>* node);
+
+		T& operator*();
+		LinkedNode<T>* operator->();
+
+		Iterator& operator++();
+		Iterator operator++(int);
+		Iterator& operator--();
+		Iterator operator--(int);
+		bool operator==(const Iterator& other) const;
+		bool operator!=(const Iterator& other) const;
+
+		
+	};
+
+	Iterator begin();
+	Iterator end();
+	
 };
 
 template <typename T>
@@ -250,4 +278,80 @@ LinkedList<T>& LinkedList<T>::operator=(LinkedList<T> &&other)
 	other.m_count = 0;
 
 	return *this;
+}
+
+//iterator function implementation
+
+template <typename T>
+LinkedList<T>::Iterator::Iterator(LinkedNode<T>* node)
+{
+	m_node = node;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::begin()
+{
+	return Iterator(m_head);
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::end()
+{
+	return Iterator(nullptr);
+}
+
+template <typename T>
+T& LinkedList<T>::Iterator::operator*()
+{
+	return m_node->getData();
+}
+
+template <typename T>
+LinkedNode<T>* LinkedList<T>::Iterator::operator->()
+{
+	return m_node;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator& LinkedList<T>::Iterator::operator++()
+{
+	m_node = m_node->getNext();
+	return *this;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator++(int)
+{
+	Iterator old = *this;
+	m_node = m_node->getNext();
+
+	return old;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator& LinkedList<T>::Iterator::operator--()
+{
+	m_node = m_node->getPrev();
+	return *this;
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::Iterator::operator--(int)
+{
+	Iterator old = *this;
+	m_node = m_node->getPrev();
+
+	return old;
+}
+
+template <typename T>
+bool LinkedList<T>::Iterator::operator==(const Iterator& other) const
+{
+	return m_node == other.m_node;
+}
+
+template <typename T>
+bool LinkedList<T>::Iterator::operator!=(const Iterator& other) const
+{
+	return !(*this == other);
 }
