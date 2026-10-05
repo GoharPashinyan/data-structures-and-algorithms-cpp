@@ -67,6 +67,27 @@ class LinkedList
 	Iterator begin();
 	Iterator end();
 	
+
+	//const iterator
+	class ConstIterator
+	{
+		private:
+		const LinkedNode<T> *m_node;
+
+		public:
+		ConstIterator(const LinkedNode<T>* node);
+
+		const T& operator*() const;
+		ConstIterator& operator++();
+		ConstIterator operator++(int);
+		ConstIterator& operator--();
+		ConstIterator operator--(int);
+		const LinkedNode<T>* operator->()const;
+	};
+	ConstIterator begin() const;
+	ConstIterator end() const;
+	ConstIterator cbegin() const;
+	ConstIterator cend() const;
 };
 
 template <typename T>
@@ -354,4 +375,76 @@ template <typename T>
 bool LinkedList<T>::Iterator::operator!=(const Iterator& other) const
 {
 	return !(*this == other);
+}
+
+template <typename T>
+LinkedList<T>::ConstIterator::ConstIterator(const LinkedNode<T> *node)
+{
+	m_node = node;
+}
+
+template <typename T>
+const T& LinkedList<T>::ConstIterator::operator*() const
+{
+	return m_node->getData();
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator& LinkedList<T>::ConstIterator::operator++()
+{
+	m_node = m_node->getNext();
+	return *this;
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::ConstIterator::operator++(int)
+{
+	ConstIterator it = *this;
+	m_node = m_node->getNext();
+	return it;
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator& LinkedList<T>::ConstIterator::operator--()
+{
+	m_node = m_node->getPrev();
+	return *this;
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::ConstIterator::operator--(int)
+{
+	ConstIterator it = *this;
+	m_node = m_node->getPrev();
+	return it;
+}
+
+template <typename T>
+const LinkedNode <T>* LinkedList<T>::ConstIterator::operator->() const
+{
+	return m_node;
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::begin() const
+{
+	return ConstIterator(m_head);
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::end() const
+{
+	return ConstIterator(nullptr);
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::cbegin() const
+{
+	return ConstIterator(m_head);
+}
+
+template <typename T>
+typename LinkedList<T>::ConstIterator LinkedList<T>::cend() const
+{
+	return ConstIterator(nullptr);
 }
