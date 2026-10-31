@@ -18,6 +18,10 @@ add_executable(list_test
     tests/linked_list/list_test.cpp
 )
 
+add_executable(insertion_sort_test
+    tests/algorithms/insertion_sort_test.cpp
+)
+
 target_include_directories(cpp_dsa_library PRIVATE
     include
 )
@@ -26,9 +30,19 @@ target_include_directories(list_test PRIVATE
     include
 )
 
+target_include_directories(insertion_sort_test PRIVATE
+    include    
+)
+
+
 enable_testing()
 
 add_test(
     NAME ListTest
     COMMAND list_test
+)
+
+add_test(
+    NAME InsertionSort 
+    COMMAND insertion_sort_test
 )
