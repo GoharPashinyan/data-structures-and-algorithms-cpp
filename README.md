@@ -1,49 +1,28 @@
 # C++ DSA Library
 
-A C++ project for implementing and studying data structures and algorithms.
+A C++ library providing implementations of fundamental data structures and algorithms using generic programming and modern C++ practices.
 
-## Goals
-
-* Practice C++ and STL
-* Implement common data structures from scratch
-* Study algorithms and their time complexity
-* Improve problem-solving and DSA skills
-* Build a structured and reusable C++ project
-
-## Current Features
+## Data Structures
 
 ### Binary Tree
-
-* `TreeNode`
-* Binary Tree
-* Level-order insertion
-* BFS traversal
-* DFS traversals
-
-  * Preorder
-  * Inorder
-  * Postorder
+- Binary Tree implementation
+- Level-order insertion
 
 ### Binary Search Tree
-
-* `TreeNode`
-* BST insertion
-* BST search
+- BST implementation
+- Insertion and search operations
 
 ### Doubly Linked List
+- Templated doubly linked list implementation
+- Bidirectional and const iterators
+- Element access, insertion and removal operations
+- Copy and move semantics
+- Rule of Five implementation
 
-* `LinkedNode<T>`
-* `LinkedList<T>`
-* `empty()`
-* `size()`
-* `front()`
-* `back()`
-* `push_front()`
-* `push_back()`
-* `pop_front()`
-* `pop_back()`
-* `clear()`
-* Destructor
+## Algorithms
+
+- Insertion Sort
+- Tree Traversal (BFS, DFS)
 
 ## Project Structure
 
@@ -52,6 +31,8 @@ cpp-dsa-library/
 │
 ├── include/
 │   ├── algorithms/
+│   │   ├── sorting/
+│   │   │   └── insertion_sort.h
 │   │   └── tree/
 │   │       ├── bfs.h
 │   │       └── dfs.h
@@ -62,10 +43,8 @@ cpp-dsa-library/
 │   │
 │   └── tree/
 │       ├── node.h
-│       │
 │       ├── binary_tree/
 │       │   └── binary_tree.h
-│       │
 │       └── binary_search_tree/
 │           └── bst.h
 │
@@ -77,12 +56,16 @@ cpp-dsa-library/
 │   │
 │   └── tree/
 │       ├── node.cpp
-│       │
 │       ├── binary_tree/
 │       │   └── binary_tree.cpp
-│       │
 │       └── binary_search_tree/
 │           └── bst.cpp
+│
+├── tests/
+│   ├── algorithms/
+│   │   └── insertion_sort_test.cpp
+│   └── linked_list/
+│       └── list_test.cpp
 │
 ├── main.cpp
 ├── CMakeLists.txt
@@ -92,10 +75,14 @@ cpp-dsa-library/
 
 ## Build
 
-The project uses CMake to configure the build.
+The project uses CMake as its build system.
 
 ```bash
 cmake --build build
 ```
 
-The executable is generated inside the `build/` directory.
+## Run Tests
+
+```bash
+ctest --test-dir build --output-on-failure
+```
