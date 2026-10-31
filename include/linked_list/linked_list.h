@@ -18,30 +18,7 @@ class LinkedList
 
 	//dtor
 	~LinkedList();
-
-	bool empty() const;
-	std::size_t size() const;
-
-	T& front();
-	const T& front() const;
-
-	T& back();
-	const T& back() const;
-
-	void push_front(const T& value);
-	void push_back(const T& value);
-
-	void pop_front();
-	void pop_back();
-
-	void clear();
-
-	//operators
-	LinkedList<T>& operator=(const LinkedList<T>& other);
-	LinkedList<T>& operator=(LinkedList<T> &&other);
-
-
-
+	
 	//iterator
 	class Iterator
 	{
@@ -61,13 +38,12 @@ class LinkedList
 		bool operator==(const Iterator& other) const;
 		bool operator!=(const Iterator& other) const;
 
-		
+		LinkedNode<T>* getNode() const;
 	};
 
 	Iterator begin();
 	Iterator end();
 	
-
 	//const iterator
 	class ConstIterator
 	{
@@ -84,10 +60,34 @@ class LinkedList
 		ConstIterator operator--(int);
 		const LinkedNode<T>* operator->()const;
 	};
+
 	ConstIterator begin() const;
 	ConstIterator end() const;
 	ConstIterator cbegin() const;
 	ConstIterator cend() const;
+
+	bool empty() const;
+	std::size_t size() const;
+
+	T& front();
+	const T& front() const;
+
+	T& back();
+	const T& back() const;
+
+	void push_front(const T& value);
+	void push_back(const T& value);
+
+	void pop_front();
+	void pop_back();
+
+	void clear();
+	Iterator insert(const Iterator&, const T&);
+	Iterator erase(const Iterator&);
+
+	//operators
+	LinkedList<T>& operator=(const LinkedList<T>& other);
+	LinkedList<T>& operator=(LinkedList<T> &&other);
 };
 
 template <typename T>
@@ -265,6 +265,95 @@ void LinkedList<T>::clear()
 }
 
 template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::insert(const Iterator& it, const T& value)
+{	
+	LinkedNode<T>* newNode = new LinkedNode(value);
+	LinkedNode<T>* current = it.getNode();
+
+	if(current == nullptr)
+	{
+		newNode->setPrev(m_tail);
+		newNode->setNext(nullptr);
+
+		if(m_tail != nullptr)
+		{
+			m_tail->setNext(newNode);
+		}
+		else{
+			m_head = newNode;
+		}
+		m_tail = newNode;
+	}
+	else if(current->getPrev() == nullptr)
+	{
+		newNode->setPrev(nullptr);
+		newNode->setNext(current);
+		m_head = newNode;
+
+		current->setPrev(newNode);
+	}
+	
+	else{
+		LinkedNode<T>* previous = current->getPrev();
+
+		newNode->setPrev(previous);
+		newNode->setNext(current);
+
+		previous->setNext(newNode);
+		current->setPrev(newNode);
+	}
+	++m_count;
+	return Iterator(newNode);
+}
+
+template <typename T>
+typename LinkedList<T>::Iterator LinkedList<T>::erase(const Iterator& it)
+{
+	LinkedNode<T>* current = it.getNode();
+
+	assert(current != nullptr);
+	
+	Iterator newIt(current->getNext());
+	if(current == m_head && current == m_tail)
+	{
+		m_head = nullptr;
+		m_tail = nullptr;
+		newIt = end();
+	}
+	else if(current == m_head)
+	{
+		m_head = m_head->getNext();
+		m_head->setPrev(nullptr);
+	}
+	else if(current == m_tail)
+	{
+		m_tail = m_tail->getPrev();
+		m_tail->setNext(nullptr);
+		newIt = end();
+	}
+	else
+	{
+		LinkedNode<T>* previous = current->getPrev();
+		LinkedNode<T>* next = current->getNext();
+
+		next->setPrev(previous);
+		previous->setNext(next);
+
+	}
+
+	delete current;
+	--m_count;
+
+	return newIt;
+}
+
+
+
+
+
+
+
+template <typename T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other)
 {
 	if(this == &other)
@@ -307,6 +396,12 @@ template <typename T>
 LinkedList<T>::Iterator::Iterator(LinkedNode<T>* node)
 {
 	m_node = node;
+}
+
+template <typename T>
+LinkedNode<T>* LinkedList<T>::Iterator::getNode() const
+{
+	return m_node;
 }
 
 template <typename T>
